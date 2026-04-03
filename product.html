@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever - Product</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        .prata-regular { font-family: 'Prata', serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between py-5 font-medium">
+        <a href="index.html">
+            <img src="assets/logo.png" class="w-36" alt="logo">
+        </a>
+        <ul class="hidden sm:flex gap-5 text-sm text-gray-700">
+            <li><a href="index.html" class="flex flex-col items-center gap-1">HOME<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="collection.html" class="flex flex-col items-center gap-1">COLLECTION<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="about.html" class="flex flex-col items-center gap-1">ABOUT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="contact.html" class="flex flex-col items-center gap-1">CONTACT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+        </ul>
+        <div class="flex items-center gap-6">
+            <img onclick="setShowSearch(true)" src="assets/search_icon.png" class="w-5 cursor-pointer" alt="search">
+            <div class="group relative">
+                <a href="login.html"><img src="assets/profile_icon.png" class="w-5 cursor-pointer" alt="profile"></a>
+                <div class="absolute right-0 pt-4 hidden group-hover:block">
+                    <div class="flex flex-col gap-2 w-36 py-5 bg-slate-100 text-gray-500 rounded shadow">
+                        <p class="cursor-pointer hover:text-black px-4">My Profile</p>
+                        <a href="orders.html" class="cursor-pointer hover:text-black px-4">Orders</a>
+                        <p class="cursor-pointer hover:text-black px-4">Logout</p>
+                    </div>
+                </div>
+            </div>
+            <a href="cart.html" class="relative">
+                <img src="assets/cart_icon.png" class="w-5 min-w-5" alt="cart">
+                <p class="absolute -right-1 -bottom-1 w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px] cart-count">0</p>
+            </a>
+            <img onclick="toggleMobileMenu()" src="assets/menu_icon.png" class="w-5 cursor-pointer sm:hidden" alt="menu">
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all w-0 z-50">
+        <div class="flex flex-col text-gray-600">
+            <div onclick="toggleMobileMenu()" class="flex items-center gap-4 p-3 cursor-pointer">
+                <img class="h-4" src="assets/dropdown_icon.png" alt="back">
+                <p>Back</p>
+            </div>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="index.html">HOME</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="collection.html">COLLECTION</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="about.html">ABOUT</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="contact.html">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- Product Details -->
+    <div id="product-container" class="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+        <div class="flex gap-12 sm:gap-12 flex-col sm:flex-row">
+            <!-- Product Images -->
+            <div class="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
+                <div id="thumbnail-container" class="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
+                    <!-- Thumbnails will be injected -->
+                </div>
+                <div class="w-full sm:w-[80%]">
+                    <img id="main-image" class="w-full h-auto" src="" alt="">
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="flex-1">
+                <h1 id="product-name" class="font-medium text-2xl mt-2"></h1>
+                <div class="flex items-center gap-1 mt-2">
+                    <img src="assets/star_icon.png" alt="" class="w-3.5">
+                    <img src="assets/star_icon.png" alt="" class="w-3.5">
+                    <img src="assets/star_icon.png" alt="" class="w-3.5">
+                    <img src="assets/star_icon.png" alt="" class="w-3.5">
+                    <img src="assets/star_dull_icon.png" alt="" class="w-3.5">
+                    <p class="pl-2">(122)</p>
+                </div>
+                <p id="product-price" class="mt-5 text-3xl font-medium"></p>
+                <p id="product-description" class="mt-5 text-gray-500 md:w-4/5"></p>
+                
+                <div class="flex flex-col gap-4 my-8">
+                    <p>Select Size</p>
+                    <div id="size-container" class="flex gap-2">
+                        <!-- Sizes will be injected -->
+                    </div>
+                </div>
+                <button id="add-to-cart-btn" class="bg-black text-white px-8 py-3 text-sm active:bg-gray-700">ADD TO CART</button>
+                <hr class="mt-8 sm:w-4/5">
+                <div class="text-sm text-gray-500 mt-5 flex flex-col gap-1">
+                    <p>100% Original Product.</p>
+                    <p>Cash On delivery is available on this product.</p>
+                    <p>Easy return and exchange policy within 7 days.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description & Review Section -->
+        <div class="mt-20">
+            <div class="flex">
+                <b class="border px-5 py-3 text-sm">Description</b>
+                <p class="border px-5 py-3 text-sm">Reviews (122)</p>
+            </div>
+            <div class="flex flex-col gap-4 border px-6 py-6 text-sm text-gray-500">
+                <p>An e-commerce website is an online platform that facilitates the buying and selling of products or services over the internet. It serves as a virtual marketplace where businesses and individuals can showcase their products, interact with customers, and conduct transactions without the need for a physical location. E-commerce websites have gained immense popularity due to their convenience, accessibility, and the global reach they offer.</p>
+                <p>E-commerce websites typically display products or services along with detailed descriptions, images, prices, and any available variations (e.g., sizes, colors). Each product usually has its own dedicated page with relevant information.</p>
+            </div>
+        </div>
+
+        <!-- Related Products -->
+        <div class="my-24">
+            <div class="text-center text-3xl py-2">
+                 <div class="inline-flex gap-2 items-center mb-3">
+                    <p class="text-gray-500">RELATED <span class="text-gray-700 font-medium">PRODUCTS</span></p>
+                    <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+                </div>
+            </div>
+            <div id="related-products-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+                <!-- Related products will be injected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm text-gray-700">
+        <div>
+            <img src="assets/logo.png" class="mb-5 w-32" alt="logo">
+            <p class="w-full md:w-2/3 text-gray-600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            </p>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">COMPANY</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li>Delivery</li>
+                <li>Privacy policy</li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">GET IN TOUCH</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li>+1-212-456-7890</li>
+                <li>contact@foreveryou.com</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="border-t">
+        <p class="py-5 text-sm text-center text-gray-700">Copyright 2024@ forever.com - All Right Reserved</p>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/shop.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        let selectedSize = '';
+        let productData = products.find(p => p._id === productId);
+
+        function renderProduct() {
+            if (!productData) {
+                document.getElementById('product-container').innerHTML = '<p class="text-center py-20">Product not found.</p>';
+                return;
+            }
+
+            document.getElementById('product-name').innerText = productData.name;
+            document.getElementById('product-price').innerText = currency + productData.price;
+            document.getElementById('product-description').innerText = productData.description;
+            
+            const mainImg = document.getElementById('main-image');
+            mainImg.src = productData.image[0];
+
+            // Thumbnails
+            const thumbContainer = document.getElementById('thumbnail-container');
+            productData.image.forEach(img => {
+                const imgEl = document.createElement('img');
+                imgEl.src = img;
+                imgEl.className = 'w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer';
+                imgEl.onclick = () => { mainImg.src = img; };
+                thumbContainer.appendChild(imgEl);
+            });
+
+            // Sizes
+            const sizeContainer = document.getElementById('size-container');
+            productData.sizes.forEach(size => {
+                const btn = document.createElement('button');
+                btn.innerText = size;
+                btn.className = 'border py-2 px-4 bg-gray-100 size-btn';
+                btn.onclick = () => {
+                    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('border-orange-500'));
+                    btn.classList.add('border-orange-500');
+                    selectedSize = size;
+                };
+                sizeContainer.appendChild(btn);
+            });
+
+            // Add to cart
+            document.getElementById('add-to-cart-btn').onclick = () => {
+                addToCart(productData._id, selectedSize);
+            };
+
+            // Related Products
+            renderRelatedProducts();
+        }
+
+        function renderRelatedProducts() {
+            const grid = document.getElementById('related-products-grid');
+            const related = products.filter(p => p.category === productData.category && p._id !== productData._id).slice(0, 5);
+            related.forEach(product => {
+                grid.innerHTML += `
+                    <div class="text-gray-700 cursor-pointer">
+                        <a href="product.html?id=${product._id}">
+                            <div class="overflow-hidden">
+                                <img class="hover:scale-110 transition ease-in-out" src="${product.image[0]}" alt="${product.name}">
+                            </div>
+                            <p class="pt-3 pb-1 text-sm">${product.name}</p>
+                            <p class="text-sm font-medium">${currency}${product.price}</p>
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', renderProduct);
+    </script>
+</body>
+</html>

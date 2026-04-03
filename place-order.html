@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever - Place Order</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        .prata-regular { font-family: 'Prata', serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between py-5 font-medium">
+        <a href="index.html">
+            <img src="assets/logo.png" class="w-36" alt="logo">
+        </a>
+        <ul class="hidden sm:flex gap-5 text-sm text-gray-700">
+            <li><a href="index.html" class="flex flex-col items-center gap-1">HOME<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="collection.html" class="flex flex-col items-center gap-1">COLLECTION<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="about.html" class="flex flex-col items-center gap-1">ABOUT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="contact.html" class="flex flex-col items-center gap-1">CONTACT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+        </ul>
+        <div class="flex items-center gap-6">
+            <img onclick="setShowSearch(true)" src="assets/search_icon.png" class="w-5 cursor-pointer" alt="search">
+            <div class="group relative">
+                <a href="login.html"><img src="assets/profile_icon.png" class="w-5 cursor-pointer" alt="profile"></a>
+                <div class="absolute right-0 pt-4 hidden group-hover:block">
+                    <div class="flex flex-col gap-2 w-36 py-5 bg-slate-100 text-gray-500 rounded shadow">
+                        <p class="cursor-pointer hover:text-black px-4">My Profile</p>
+                        <a href="orders.html" class="cursor-pointer hover:text-black px-4">Orders</a>
+                        <p class="cursor-pointer hover:text-black px-4">Logout</p>
+                    </div>
+                </div>
+            </div>
+            <a href="cart.html" class="relative">
+                <img src="assets/cart_icon.png" class="w-5 min-w-5" alt="cart">
+                <p class="absolute -right-1 -bottom-1 w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px] cart-count">0</p>
+            </a>
+            <img onclick="toggleMobileMenu()" src="assets/menu_icon.png" class="w-5 cursor-pointer sm:hidden" alt="menu">
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all w-0 z-50">
+        <div class="flex flex-col text-gray-600">
+            <div onclick="toggleMobileMenu()" class="flex items-center gap-4 p-3 cursor-pointer">
+                <img class="h-4" src="assets/dropdown_icon.png" alt="back">
+                <p>Back</p>
+            </div>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="index.html">HOME</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="collection.html">COLLECTION</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="about.html">ABOUT</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="contact.html">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- Checkout Form -->
+    <form id="checkout-form" class="flex flex-col sm:flex-row justify-between gap-4 pt-5 sm:pt-14 min-h-[80vh] border-t">
+        <!-- Delivery Information -->
+        <div class="flex flex-col gap-4 w-full sm:max-w-[480px]">
+             <div class="text-xl sm:text-2xl my-3">
+                 <div class="inline-flex gap-2 items-center mb-3">
+                    <p class="text-gray-500">DELIVERY <span class="text-gray-700 font-medium">INFORMATION</span></p>
+                    <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+                </div>
+            </div>
+            <div class="flex gap-3">
+                <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="First name">
+                <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Last name">
+            </div>
+            <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="email" placeholder="Email address">
+            <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Street">
+            <div class="flex gap-3">
+                <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="City">
+                <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="State">
+            </div>
+            <div class="flex gap-3">
+                <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="number" placeholder="Zipcode">
+                <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="text" placeholder="Country">
+            </div>
+            <input required class="border border-gray-300 rounded py-1.5 px-3.5 w-full" type="number" placeholder="Phone">
+        </div>
+
+        <!-- Order Total & Payment Method -->
+        <div class="mt-8 sm:mt-0">
+            <div class="min-w-80">
+                <div class="w-full">
+                    <div class="text-2xl">
+                         <div class="inline-flex gap-2 items-center mb-3">
+                            <p class="text-gray-500">CART <span class="text-gray-700 font-medium">TOTALS</span></p>
+                            <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+                        </div>
+                    </div>
+                    <div class="flex flex-col gap-2 mt-2 text-sm">
+                        <div class="flex justify-between">
+                            <p>Subtotal</p>
+                            <p id="subtotal-amount">$0.00</p>
+                        </div>
+                        <hr>
+                        <div class="flex justify-between">
+                            <p>Shipping Fee</p>
+                            <p id="shipping-fee">$10.00</p>
+                        </div>
+                        <hr>
+                        <div class="flex justify-between">
+                            <b>Total</b>
+                            <b id="total-amount">$0.00</b>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-12">
+                <div class="inline-flex gap-2 items-center mb-3 text-xl">
+                    <p class="text-gray-500">PAYMENT <span class="text-gray-700 font-medium">METHOD</span></p>
+                    <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+                </div>
+                <div class="flex gap-3 flex-col lg:flex-row">
+                    <div onclick="setSelectedPayment('stripe')" class="flex items-center gap-3 border p-2 px-3 cursor-pointer payment-method" id="stripe-method">
+                        <p class="min-w-3.5 h-3.5 border rounded-full payment-dot"></p>
+                        <img class="h-5 mx-4" src="assets/stripe_logo.png" alt="stripe">
+                    </div>
+                    <div onclick="setSelectedPayment('razorpay')" class="flex items-center gap-3 border p-2 px-3 cursor-pointer payment-method" id="razorpay-method">
+                        <p class="min-w-3.5 h-3.5 border rounded-full payment-dot"></p>
+                        <img class="h-5 mx-4" src="assets/razorpay_logo.png" alt="razorpay">
+                    </div>
+                    <div onclick="setSelectedPayment('cod')" class="flex items-center gap-3 border p-2 px-3 cursor-pointer payment-method" id="cod-method">
+                        <p class="min-w-3.5 h-3.5 border rounded-full payment-dot"></p>
+                        <p class="text-gray-500 text-sm font-medium mx-4">CASH ON DELIVERY</p>
+                    </div>
+                </div>
+                <div class="w-full text-end mt-8">
+                    <button type="submit" class="bg-black text-white px-16 py-3 text-sm">PLACE ORDER</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Footer -->
+    <footer class="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm text-gray-700">
+        <div>
+            <img src="assets/logo.png" class="mb-5 w-32" alt="logo">
+            <p class="w-full md:w-2/3 text-gray-600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            </p>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">COMPANY</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li>Delivery</li>
+                <li>Privacy policy</li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">GET IN TOUCH</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li>+1-212-456-7890</li>
+                <li>contact@foreveryou.com</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="border-t">
+        <p class="py-5 text-sm text-center text-gray-700">Copyright 2024@ forever.com - All Right Reserved</p>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/shop.js"></script>
+    <script>
+        let subtotal = getCartAmount();
+        let selectedPayment = 'cod';
+
+        function updateTotals() {
+            document.getElementById('subtotal-amount').innerText = currency + subtotal.toFixed(2);
+            const total = subtotal > 0 ? subtotal + delivery_fee : 0;
+            document.getElementById('total-amount').innerText = currency + total.toFixed(2);
+            document.getElementById('shipping-fee').innerText = currency + (subtotal > 0 ? delivery_fee : 0).toFixed(2);
+        }
+
+        function setSelectedPayment(method) {
+            selectedPayment = method;
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.querySelector('.payment-dot').classList.remove('bg-green-400');
+            });
+            document.getElementById(method + '-method').querySelector('.payment-dot').classList.add('bg-green-400');
+        }
+
+        document.getElementById('checkout-form').onsubmit = (e) => {
+            e.preventDefault();
+            // In a static version, clear cart and redirect to orders
+            localStorage.setItem('cartItems', '{}');
+            window.location.href = 'orders.html';
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTotals();
+            setSelectedPayment('cod');
+        });
+    </script>
+</body>
+</html>

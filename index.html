@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever - Home</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        .prata-regular { font-family: 'Prata', serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between py-5 font-medium">
+        <a href="index.html">
+            <img src="assets/logo.png" class="w-36" alt="logo">
+        </a>
+        <ul class="hidden sm:flex gap-5 text-sm text-gray-700">
+            <li><a href="index.html" class="flex flex-col items-center gap-1 active">HOME<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="collection.html" class="flex flex-col items-center gap-1">COLLECTION<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="about.html" class="flex flex-col items-center gap-1">ABOUT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="contact.html" class="flex flex-col items-center gap-1">CONTACT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+        </ul>
+        <div class="flex items-center gap-6">
+            <img onclick="setShowSearch(true)" src="assets/search_icon.png" class="w-5 cursor-pointer" alt="search">
+            <div class="group relative">
+                <a href="login.html"><img src="assets/profile_icon.png" class="w-5 cursor-pointer" alt="profile"></a>
+                <div class="absolute right-0 pt-4 hidden group-hover:block">
+                    <div class="flex flex-col gap-2 w-36 py-5 bg-slate-100 text-gray-500 rounded shadow">
+                        <p class="cursor-pointer hover:text-black px-4">My Profile</p>
+                        <a href="orders.html" class="cursor-pointer hover:text-black px-4">Orders</a>
+                        <p class="cursor-pointer hover:text-black px-4">Logout</p>
+                    </div>
+                </div>
+            </div>
+            <a href="cart.html" class="relative">
+                <img src="assets/cart_icon.png" class="w-5 min-w-5" alt="cart">
+                <p class="absolute -right-1 -bottom-1 w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px] cart-count">0</p>
+            </a>
+            <img onclick="toggleMobileMenu()" src="assets/menu_icon.png" class="w-5 cursor-pointer sm:hidden" alt="menu">
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all w-0 z-50">
+        <div class="flex flex-col text-gray-600">
+            <div onclick="toggleMobileMenu()" class="flex items-center gap-4 p-3 cursor-pointer">
+                <img class="h-4" src="assets/dropdown_icon.png" alt="back">
+                <p>Back</p>
+            </div>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="index.html">HOME</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="collection.html">COLLECTION</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="about.html">ABOUT</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="contact.html">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div id="search-bar" class="hidden border-t border-b bg-gray-50 text-center py-5 relative">
+        <div class="inline-flex items-center justify-center border border-gray-400 px-5 py-2 my-5 mx-3 rounded-full w-3/4 sm:w-1/2">
+            <input id="search-input" class="flex-1 outline-none bg-inherit text-sm" type="text" placeholder="Search">
+            <img class="w-4" src="assets/search_icon.png" alt="search">
+        </div>
+        <img onclick="setShowSearch(false)" class="inline w-3 cursor-pointer" src="assets/cross_icon.png" alt="close">
+    </div>
+
+    <!-- Hero Section -->
+    <section class="flex flex-col sm:flex-row border border-gray-400">
+        <div class="w-full sm:w-1/2 flex items-center justify-center py-10 sm:py-0">
+            <div class="text-[#414141]">
+                <div class="flex items-center gap-2">
+                    <span class="w-8 md:w-11 h-[2px] bg-[#414141]"></span>
+                    <p class="font-medium text-sm md:text-base text-[#414141]">OUR BESTSELLERS</p>
+                </div>
+                <h1 class="prata-regular text-3xl sm:py-3 lg:text-5xl leading-relaxed">Latest Arrivals</h1>
+                <div class="flex items-center gap-2">
+                    <p class="font-semibold text-sm md:text-base">SHOP NOW</p>
+                    <span class="w-8 md:w-11 h-[2px] bg-[#414141]"></span>
+                </div>
+            </div>
+        </div>
+        <img class="w-full sm:w-1/2" src="assets/hero_img.png" alt="hero">
+    </section>
+
+    <!-- Latest Collection -->
+    <section class="my-10">
+        <div class="text-center py-8 text-3xl">
+            <div class="inline-flex gap-2 items-center mb-3">
+                <p class="text-gray-500">LATEST <span class="text-gray-700 font-medium">COLLECTIONS</span></p>
+                <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+            </div>
+            <p class="w-3/4 m-auto text-xs sm:text-base text-gray-600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </p>
+        </div>
+        <div id="latest-collection-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+            <!-- Products will be injected by JS -->
+        </div>
+    </section>
+
+    <!-- Best Seller -->
+    <section class="my-10">
+        <div class="text-center py-8 text-3xl">
+            <div class="inline-flex gap-2 items-center mb-3">
+                <p class="text-gray-500">BEST <span class="text-gray-700 font-medium">SELLERS</span></p>
+                <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+            </div>
+            <p class="w-3/4 m-auto text-xs sm:text-base text-gray-600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </p>
+        </div>
+        <div id="best-seller-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
+            <!-- Products will be injected by JS -->
+        </div>
+    </section>
+
+    <!-- Our Policy -->
+    <section class="flex flex-col sm:flex-row justify-around gap-12 sm:gap-2 text-center py-20 text-xs sm:text-sm md:text-base text-gray-700">
+        <div>
+            <img src="assets/exchange_icon.png" class="w-12 m-auto mb-5" alt="exchange">
+            <p class="font-semibold">Easy Exchange Policy</p>
+            <p class="text-gray-400">We offer hassle free exchange policy</p>
+        </div>
+        <div>
+            <img src="assets/quality_icon.png" class="w-12 m-auto mb-5" alt="quality">
+            <p class="font-semibold">7 Days Return Policy</p>
+            <p class="text-gray-400">We provide 7 days free return policy</p>
+        </div>
+        <div>
+            <img src="assets/support_img.png" class="w-12 m-auto mb-5" alt="support">
+            <p class="font-semibold">Best Customer Support</p>
+            <p class="text-gray-400">We provide 24/7 customer support</p>
+        </div>
+    </section>
+
+    <!-- Newletter Box -->
+     <section class="text-center">
+        <p class="text-2xl font-medium text-gray-800">Subscribe now & get 20% off</p>
+        <p class="text-gray-400 mt-3">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        <form class="w-full sm:w-1/2 flex items-center gap-3 mx-auto my-6 border pl-3">
+            <input class="w-full sm:flex-1 outline-none" type="email" placeholder="Enter your email" required>
+            <button type="submit" class="bg-black text-white text-xs px-10 py-4">SUBSCRIBE</button>
+        </form>
+     </section>
+
+    <!-- Footer -->
+    <footer class="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm text-gray-700">
+        <div>
+            <img src="assets/logo.png" class="mb-5 w-32" alt="logo">
+            <p class="w-full md:w-2/3 text-gray-600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            </p>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">COMPANY</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li>Delivery</li>
+                <li>Privacy policy</li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">GET IN TOUCH</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li>+1-212-456-7890</li>
+                <li>contact@foreveryou.com</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="border-t">
+        <p class="py-5 text-sm text-center text-gray-700">Copyright 2024@ forever.com - All Right Reserved</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/data.js"></script>
+    <script src="js/shop.js"></script>
+    <script>
+        // Page specific logic
+        document.addEventListener('DOMContentLoaded', () => {
+            const latestGrid = document.getElementById('latest-collection-grid');
+            const bestSellerGrid = document.getElementById('best-seller-grid');
+
+            // Render Latest Collections (first 10)
+            const latestProducts = products.slice(0, 10);
+            latestProducts.forEach(product => {
+                latestGrid.innerHTML += `
+                    <div class="text-gray-700 cursor-pointer">
+                        <a href="product.html?id=${product._id}">
+                            <div class="overflow-hidden">
+                                <img class="hover:scale-110 transition ease-in-out" src="${product.image[0]}" alt="${product.name}">
+                            </div>
+                            <p class="pt-3 pb-1 text-sm">${product.name}</p>
+                            <p class="text-sm font-medium">${currency}${product.price}</p>
+                        </a>
+                    </div>
+                `;
+            });
+
+            // Render Best Sellers (filtered by bestseller flag)
+            const bestSellers = products.filter(p => p.bestseller).slice(0, 5);
+            bestSellers.forEach(product => {
+                bestSellerGrid.innerHTML += `
+                    <div class="text-gray-700 cursor-pointer">
+                        <a href="product.html?id=${product._id}">
+                            <div class="overflow-hidden">
+                                <img class="hover:scale-110 transition ease-in-out" src="${product.image[0]}" alt="${product.name}">
+                            </div>
+                            <p class="pt-3 pb-1 text-sm">${product.name}</p>
+                            <p class="text-sm font-medium">${currency}${product.price}</p>
+                        </a>
+                    </div>
+                `;
+            });
+        });
+    </script>
+</body>
+</html>

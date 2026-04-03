@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forever - Collection</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: 'Outfit', sans-serif; }
+        .prata-regular { font-family: 'Prata', serif; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]">
+
+    <!-- Navbar -->
+    <nav class="flex items-center justify-between py-5 font-medium">
+        <a href="index.html">
+            <img src="assets/logo.png" class="w-36" alt="logo">
+        </a>
+        <ul class="hidden sm:flex gap-5 text-sm text-gray-700">
+            <li><a href="index.html" class="flex flex-col items-center gap-1">HOME<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="collection.html" class="flex flex-col items-center gap-1 active">COLLECTION<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="about.html" class="flex flex-col items-center gap-1">ABOUT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+            <li><a href="contact.html" class="flex flex-col items-center gap-1">CONTACT<hr class="w-2/4 border-none h-[1.5px] bg-gray-700 hidden"></a></li>
+        </ul>
+        <div class="flex items-center gap-6">
+            <img onclick="setShowSearch(true)" src="assets/search_icon.png" class="w-5 cursor-pointer" alt="search">
+            <div class="group relative">
+                <a href="login.html"><img src="assets/profile_icon.png" class="w-5 cursor-pointer" alt="profile"></a>
+                <div class="absolute right-0 pt-4 hidden group-hover:block">
+                    <div class="flex flex-col gap-2 w-36 py-5 bg-slate-100 text-gray-500 rounded shadow">
+                        <p class="cursor-pointer hover:text-black px-4">My Profile</p>
+                        <a href="orders.html" class="cursor-pointer hover:text-black px-4">Orders</a>
+                        <p class="cursor-pointer hover:text-black px-4">Logout</p>
+                    </div>
+                </div>
+            </div>
+            <a href="cart.html" class="relative">
+                <img src="assets/cart_icon.png" class="w-5 min-w-5" alt="cart">
+                <p class="absolute -right-1 -bottom-1 w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px] cart-count">0</p>
+            </a>
+            <img onclick="toggleMobileMenu()" src="assets/menu_icon.png" class="w-5 cursor-pointer sm:hidden" alt="menu">
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 bottom-0 overflow-hidden bg-white transition-all w-0 z-50">
+        <div class="flex flex-col text-gray-600">
+            <div onclick="toggleMobileMenu()" class="flex items-center gap-4 p-3 cursor-pointer">
+                <img class="h-4" src="assets/dropdown_icon.png" alt="back">
+                <p>Back</p>
+            </div>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="index.html">HOME</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="collection.html">COLLECTION</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="about.html">ABOUT</a>
+            <a onclick="toggleMobileMenu()" class="py-2 pl-6 border" href="contact.html">CONTACT</a>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div id="search-bar" class="hidden border-t border-b bg-gray-50 text-center py-5 relative">
+        <div class="inline-flex items-center justify-center border border-gray-400 px-5 py-2 my-5 mx-3 rounded-full w-3/4 sm:w-1/2">
+            <input id="search-input" class="flex-1 outline-none bg-inherit text-sm" type="text" placeholder="Search">
+            <img class="w-4" src="assets/search_icon.png" alt="search">
+        </div>
+        <img onclick="setShowSearch(false)" class="inline w-3 cursor-pointer" src="assets/cross_icon.png" alt="close">
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
+        
+        <!-- Filter Options -->
+        <div class="min-w-60">
+            <p onclick="toggleFilterVisible()" class="my-2 text-xl flex items-center cursor-pointer gap-2">
+                FILTERS
+                <img id="filter-dropdown-icon" class="h-3 sm:hidden" src="assets/dropdown_icon.png" alt="">
+            </p>
+
+            <!-- Category Filter -->
+            <div id="filter-container" class="hidden sm:block">
+                <div class="border border-gray-300 pl-5 py-3 mt-6">
+                    <p class="mb-3 text-sm font-medium">CATEGORIES</p>
+                    <div class="flex flex-col gap-2 text-sm font-light text-gray-700">
+                        <label class="flex gap-2 cursor-pointer"><input class="w-3 category-checkbox" type="checkbox" value="Men"> Men</label>
+                        <label class="flex gap-2 cursor-pointer"><input class="w-3 category-checkbox" type="checkbox" value="Women"> Women</label>
+                        <label class="flex gap-2 cursor-pointer"><input class="w-3 category-checkbox" type="checkbox" value="Kids"> Kids</label>
+                    </div>
+                </div>
+
+                <!-- SubCategory Filter -->
+                <div class="border border-gray-300 pl-5 py-3 my-5">
+                    <p class="mb-3 text-sm font-medium">TYPE</p>
+                    <div class="flex flex-col gap-2 text-sm font-light text-gray-700">
+                        <label class="flex gap-2 cursor-pointer"><input class="w-3 subcategory-checkbox" type="checkbox" value="Topwear"> Topwear</label>
+                        <label class="flex gap-2 cursor-pointer"><input class="w-3 subcategory-checkbox" type="checkbox" value="Bottomwear"> Bottomwear</label>
+                        <label class="flex gap-2 cursor-pointer"><input class="w-3 subcategory-checkbox" type="checkbox" value="Winterwear"> Winterwear</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="flex-1">
+            <div class="flex justify-between text-base sm:text-2xl mb-4">
+                <div class="inline-flex gap-2 items-center mb-3">
+                    <p class="text-gray-500">ALL <span class="text-gray-700 font-medium">COLLECTIONS</span></p>
+                    <p class="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
+                </div>
+                <select id="sort-select" class="border-2 border-gray-300 text-sm px-2">
+                    <option value="relevant">Sort by: Relevant</option>
+                    <option value="low-high">Sort by: Low to High</option>
+                    <option value="high-low">Sort by: High to Low</option>
+                </select>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="collection-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+                <!-- Products will be injected by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm text-gray-700">
+        <div>
+            <img src="assets/logo.png" class="mb-5 w-32" alt="logo">
+            <p class="w-full md:w-2/3 text-gray-600">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+            </p>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">COMPANY</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About us</a></li>
+                <li>Delivery</li>
+                <li>Privacy policy</li>
+            </ul>
+        </div>
+        <div>
+            <p class="text-xl font-medium mb-5">GET IN TOUCH</p>
+            <ul class="flex flex-col gap-1 text-gray-600">
+                <li>+1-212-456-7890</li>
+                <li>contact@foreveryou.com</li>
+            </ul>
+        </div>
+    </footer>
+    <div class="border-t">
+        <p class="py-5 text-sm text-center text-gray-700">Copyright 2024@ forever.com - All Right Reserved</p>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/shop.js"></script>
+    <script>
+        let filterProducts = [...products];
+        let category = [];
+        let subCategory = [];
+        let sortType = 'relevant';
+        let search = '';
+
+        function toggleFilterVisible() {
+            const container = document.getElementById('filter-container');
+            const icon = document.getElementById('filter-dropdown-icon');
+            container.classList.toggle('hidden');
+            icon.classList.toggle('rotate-90');
+        }
+
+        function applyFilter() {
+            let productsCopy = [...products];
+
+            if (search) {
+                productsCopy = productsCopy.filter(item => 
+                    item.name.toLowerCase().includes(search.toLowerCase())
+                );
+            }
+
+            if (category.length > 0) {
+                productsCopy = productsCopy.filter(item => category.includes(item.category));
+            }
+
+            if (subCategory.length > 0) {
+                productsCopy = productsCopy.filter(item => subCategory.includes(item.subCategory));
+            }
+
+            // Apply Sorting
+            if (sortType === 'low-high') {
+                productsCopy.sort((a, b) => a.price - b.price);
+            } else if (sortType === 'high-low') {
+                productsCopy.sort((a, b) => b.price - a.price);
+            }
+
+            filterProducts = productsCopy;
+            renderProducts();
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('collection-grid');
+            grid.innerHTML = '';
+            filterProducts.forEach(product => {
+                grid.innerHTML += `
+                    <div class="text-gray-700 cursor-pointer">
+                        <a href="product.html?id=${product._id}">
+                            <div class="overflow-hidden">
+                                <img class="hover:scale-110 transition ease-in-out" src="${product.image[0]}" alt="${product.name}">
+                            </div>
+                            <p class="pt-3 pb-1 text-sm">${product.name}</p>
+                            <p class="text-sm font-medium">${currency}${product.price}</p>
+                        </a>
+                    </div>
+                `;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts();
+
+            // Category filters
+            document.querySelectorAll('.category-checkbox').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        category.push(e.target.value);
+                    } else {
+                        category = category.filter(c => c !== e.target.value);
+                    }
+                    applyFilter();
+                });
+            });
+
+            // SubCategory filters
+            document.querySelectorAll('.subcategory-checkbox').forEach(cb => {
+                cb.addEventListener('change', (e) => {
+                    if (e.target.checked) {
+                        subCategory.push(e.target.value);
+                    } else {
+                        subCategory = subCategory.filter(c => c !== e.target.value);
+                    }
+                    applyFilter();
+                });
+            });
+
+            // Sort select
+            document.getElementById('sort-select').addEventListener('change', (e) => {
+                sortType = e.target.value;
+                applyFilter();
+            });
+
+            // Search input
+            document.getElementById('search-input').addEventListener('input', (e) => {
+                search = e.target.value;
+                applyFilter();
+            });
+        });
+    </script>
+</body>
+</html>
